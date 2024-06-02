@@ -1,3 +1,4 @@
+local MyModule = {}
 local staffScreen = script.Parent.StaffMonitor.Screen.SurfaceGui.POSUI.Main
 local customerScreen = script.Parent.CustomerMonitor.Screen.SurfaceGui.POSUI
 local transaction = false
@@ -18,3 +19,9 @@ scan.Touched:Connect(function(tool)
 	end
 
 end)
+
+return MyModule
+
+
+
+
