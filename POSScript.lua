@@ -3,8 +3,8 @@ local POSModule = {}
 -- Function to create and set up UI instances
 function POSModule.createUIElements(state)
     local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Name = "POSUI"
-    surfaceGui.Parent = state.surfaceGuiParent  -- Parent should be specified in the state
+    surfaceGui.Name = "SurfaceGui"
+    surfaceGui.Parent = state.staffScreen  -- Parent should be specified in the state
 
     local posUI = Instance.new("Frame")
     posUI.Name = "POSUI"
