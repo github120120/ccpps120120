@@ -1,5 +1,5 @@
 local POSModule = {}
-
+--[[
 function POSModule.createUIElements(state)
     local surfaceGui = Instance.new("SurfaceGui")
     surfaceGui.Name = "SurfaceGui"
@@ -17,6 +17,7 @@ function POSModule.createUIElements(state)
     state.surfaceGui = surfaceGui
     state.posUI = posUI
 end
+--]]
 
 
 function POSModule.logIn(tool, state)
