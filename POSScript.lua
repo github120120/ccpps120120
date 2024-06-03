@@ -1,24 +1,4 @@
 local POSModule = {}
---[[
-function POSModule.createUIElements(state)
-    local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Name = "SurfaceGui"
-    surfaceGui.Face = Back
-    surfaceGui.Parent = state.staffScreen
-    
-    local posUI = Instance.new("Frame")
-    posUI.Name = "POSUI"
-    posUI.Size = UDim2.new(1, 0, 1, 0)
-    posUI.Position = UDim2.new(0, 0, 0, 0)
-    posUI.BackgroundColor3 = Color3.new(4, 46, 100)
-    posUI.Parent = screen -- Set the POSUI frame as child of the screen
-
-    -- Update the state with the created UI elements
-    state.surfaceGui = surfaceGui
-    state.posUI = posUI
-end
---]]
-
 
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
@@ -234,10 +214,6 @@ function POSModule.cardTap(card, state)
     end
 end
 
-
-
-
-
 function POSModule.init(state)
     -- Connect events
     state.scan.Touched:Connect(function(tool)
@@ -256,6 +232,9 @@ function POSModule.init(state)
     state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
     state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
 end
+
+return POSModule
+
 
 return POSModule
 
