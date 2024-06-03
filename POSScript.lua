@@ -265,6 +265,7 @@ function POSModule.init(state)
 
     -- Connect events
     state.scan.Touched:Connect(function(tool) POSModule.logIn(tool, state) end)
+    state.scan.Touched:Connect(function(tool) POSModule.scanItem(tool, state) end)
     state.staffScreen.Locked.LogInButton.MouseButton1Click:Connect(function() POSModule.logInScreen(state) end)
     state.staffScreen.LogIn.BackButton.MouseButton1Click:Connect(function() POSModule.goBack(state) end)
     state.staffScreen.Main.LogOut.MouseButton1Click:Connect(function() POSModule.logOut(state) end)
