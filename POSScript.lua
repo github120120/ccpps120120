@@ -7,7 +7,7 @@ function POSModule.createUIElements(state)
     surfaceGui.Parent = state.surfaceGuiParent  -- Parent should be specified in the state
 
     local posUI = Instance.new("Frame")
-    mainFrame.Name = "POSUI"
+    posUI.Name = "POSUI"
     posUI.Size = UDim2.new(1, 0, 1, 0)
     posUIPosition = UDim2.new(0, 0, 0, 0)
     posUI.BackgroundColor3 = Color3.new(4, 46, 100)
