@@ -1,23 +1,23 @@
 local POSModule = {}
 
--- Function to create and set up UI instances
 function POSModule.createUIElements(state)
     local surfaceGui = Instance.new("SurfaceGui")
     surfaceGui.Name = "SurfaceGui"
-    surfaceGui.Parent = state.staffScreen  -- Parent should be specified in the state
-
+    surfaceGui.Face = Back
+    surfaceGui.Parent = state.staffScreen
+    
     local posUI = Instance.new("Frame")
     posUI.Name = "POSUI"
     posUI.Size = UDim2.new(1, 0, 1, 0)
-    posUIPosition = UDim2.new(0, 0, 0, 0)
+    posUI.Position = UDim2.new(0, 0, 0, 0)
     posUI.BackgroundColor3 = Color3.new(4, 46, 100)
-    posUI.Parent = surfaceGui
+    posUI.Parent = screen -- Set the POSUI frame as child of the screen
 
     -- Update the state with the created UI elements
     state.surfaceGui = surfaceGui
     state.posUI = posUI
-    
 end
+
 
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
