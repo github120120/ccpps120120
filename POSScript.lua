@@ -234,7 +234,3 @@ function POSModule.init(state)
 end
 
 return POSModule
-
-
-return POSModule
-
