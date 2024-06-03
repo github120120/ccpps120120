@@ -1,5 +1,24 @@
 local POSModule = {}
 
+-- Function to create and set up UI instances
+function POSModule.createUIElements(state)
+    local surfaceGui = Instance.new("SurfaceGui")
+    surfaceGui.Name = "POSUI"
+    surfaceGui.Parent = state.surfaceGuiParent  -- Parent should be specified in the state
+
+    local posUI = Instance.new("Frame")
+    mainFrame.Name = "POSUIA"
+    mainFrame.Size = UDim2.new(1, 0, 1, 0)
+    mainFrame.Position = UDim2.new(0, 0, 0, 0)
+    mainFrame.BackgroundColor3 = Color3.new(4, 46, 100)
+    mainFrame.Parent = surfaceGui
+
+    -- Update the state with the created UI elements
+    state.surfaceGui = surfaceGui
+    state.posUI = posUI
+    
+end
+
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
     if staffID and state.open == false and state.onLogIn == true then
@@ -213,6 +232,10 @@ function POSModule.cardTap(card, state)
         POSModule.voidTransaction(state)
     end
 end
+
+
+
+
 
 function POSModule.init(state)
     -- Connect events
