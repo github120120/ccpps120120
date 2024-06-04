@@ -10,9 +10,12 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
-        state.customerScreen.Closed.Visible = false
-        state.customerScreen.Main.Visible = true
-        POSModule.showCustomerUI(state)
+        if state.customerScreen.Closed.Visible == true then
+            state.customerScreen.Closed.Visible = false
+            state.customerScreen.Main.Visible = true
+            POSModule.showCustomerUI(state)
+        end
+
     end
 end
 
