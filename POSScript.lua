@@ -33,7 +33,7 @@ end
 
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
-    if staffID and state.onLogIn == true then
+    if staffID and then
         state.open = true
         state.staffScreen.Main.Visible = true
         state.POS.Beep:Play()
@@ -49,18 +49,20 @@ function POSModule.showCustomerUI(state)
     state.customerScreen.Closed.Visible = false
     state.customerScreen.Main.Visible = true
 end
-
+--[[
 function POSModule.logInScreen(state)
     state.onLogIn = true
     state.staffScreen.Locked.Visible = false
     state.staffScreen.LogIn.Visible = true
 end
-
+--]]
+--[[
 function POSModule.goBack(state)
     state.onLogIn = false
     state.staffScreen.Locked.Visible = true
     state.staffScreen.LogIn.Visible = false
 end
+--]]
 
 function POSModule.logOut(state)
     state.open = false
