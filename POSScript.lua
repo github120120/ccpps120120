@@ -158,6 +158,7 @@ end
 function POSModule.cardTransaction(state)
     if state.transaction == false and state.totalPrice > 0 then
         state.transaction = true
+        POS.Beep:Play()
         
         state.cardReader.InsertCard.Transparency = 0.5
 
@@ -166,6 +167,11 @@ function POSModule.cardTransaction(state)
         state.main.Items.ItemList.Visible = false
         state.notice.Title.Text = "Transaction"
         state.notice.Info.Text = "Transaction has started. Please ask the customer to follow the instructions on the card reader."
+        state.customerNotice.Visible = true
+        state.customerScreen.Main.ItemList.Visible = false
+        state.customerNotice.Title.Text = "Transaction"
+        state.customerNotice.Info.Text = "Your transaction has started, please follow the instructions on the card-reader."
+        
         
         
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Total: $"..state.totalPrice
@@ -239,6 +245,10 @@ function POSModule.typePin(state)
             wait(2.5)
             state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Waiting for cashier..."
             state.cardReader.Screen.SurfaceGui.Frame.Bottom.Text = "$100 Contactless Limit"
+            state.customerNotice.Visible = false
+            state.customerScreen.Main.ItemList.Visible = true
+            state.customerNotice.Title.Text = "Notice Title"
+            state.customerNotice.Info.Text = "Notice Info"
             state.notice.Visible = false
             state.main.Items.ItemList.Visible = true
             
@@ -279,6 +289,11 @@ function POSModule.cardTap(card, state)
         wait(3)
         state.notice.Visible = false
         state.main.Items.ItemList.Visible = true
+
+        state.customerNotice.Visible = false
+        state.customerScreen.Main.ItemList.Visible = true
+        state.customerNotice.Title.Text = "Notice Title"
+        state.customerNotice.Info.Text = "Notice Info"
     end
 end
 
