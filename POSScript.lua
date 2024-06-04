@@ -12,13 +12,13 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
         state.customerScreen.Closed.Visible = false
         state.customerScreen.Main.Visible = true
-        POSModule.showCustomerUI()
+        POSModule.showCustomerUI(state)
     end
 end
 
 function POSModule.showCustomerUI(state)
-         state.customerScreen.Closed.Visible = false
-        state.customerScreen.Main.Visible = true
+    state.customerScreen.Closed.Visible = false
+    state.customerScreen.Main.Visible = true
 end
 
 function POSModule.logInScreen(state)
