@@ -17,6 +17,9 @@ function POSModule.init(state)
     state.scan.Touched:Connect(function(tool)
         if tool:FindFirstChild("POINTPLUS_STAFF") then
             POSModule.logIn(tool, state)
+            POSModule.showCustomerUI(state)
+            state.customerScreen.Closed.Visible = false
+            state.customerScreen.Main.Visible = true
         elseif tool:FindFirstChild("POINTPLUS_ITEM") then
             POSModule.scanItem(tool, state)
         end
