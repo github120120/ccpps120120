@@ -17,7 +17,7 @@ function POSModule.logIn(tool, state)
             state.customerScreen.Main.Visible = true
             state.customerUIOpen = true
             -- Show the customer UI
-            POSModule.showCustomerUI(state)
+            --POSModule.showCustomerUI(state)
         end
     end
 end
