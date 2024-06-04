@@ -42,13 +42,17 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
         --POSModule.showCustomerUI(state)
+        state.customerScreen.Closed.Visible = false
+        state.customerScreen.Main.Visible = true
     end
 end
 
+--[[
 function POSModule.showCustomerUI(state)
     state.customerScreen.Closed.Visible = false
     state.customerScreen.Main.Visible = true
 end
+--]]
 --[[
 function POSModule.logInScreen(state)
     state.onLogIn = true
@@ -154,6 +158,13 @@ function POSModule.cardTransaction(state)
         state.transaction = true
         
         state.cardReader.InsertCard.Transparency = 0.5
+
+
+        state.notice.Visible = true
+        state.main.Items.ItemList.Visible = false
+        state.notice.Title.Text = "Transaction"
+        state.notice.Info.Text = "Transaction has started. Please ask the customer to follow the instructions on the card reader."
+        
         
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Total: $"..state.totalPrice
         if state.totalPrice < 100 then
@@ -223,6 +234,9 @@ function POSModule.typePin(state)
             wait(1)
             state.transaction = false
             POSModule.voidTransaction(state)
+            wait(3)
+            state.notice.Visible = false
+            state.main.Items.ItemList.Visible = true
         end
     end
 end
@@ -250,9 +264,16 @@ function POSModule.cardTap(card, state)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Printing Receipt..."
         wait(1)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Thank you for shopping at this store!"
+        wait(2.5)
+        state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Waiting for cashier..."
+        state.cardReader.Screen.SurfaceGui.Frame.Bottom.Text = "$100 Contactless Limit"
+        
         
         state.transaction = false
         POSModule.voidTransaction(state)
+        wait(3)
+        state.notice.Visible = false
+        state.main.Items.ItemList.Visible = true
     end
 end
 
