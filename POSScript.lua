@@ -3,7 +3,7 @@ local POSModule = {}
 -- Ensures initial state is set up correctly
 function POSModule.init(state)
     state.open = false
-    state.onLogIn = false
+    --state.onLogIn = false
     state.transaction = false
     state.totalPrice = 0
     state.typingPin = false
@@ -41,7 +41,7 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
-        POSModule.showCustomerUI(state)
+        --POSModule.showCustomerUI(state)
     end
 end
 
@@ -66,7 +66,7 @@ end
 
 function POSModule.logOut(state)
     state.open = false
-    state.onLogIn = false
+    --state.onLogIn = false
     state.main.Visible = false
     state.customerScreen.Main.Visible = false
     state.customerScreen.Closed.Visible = true
