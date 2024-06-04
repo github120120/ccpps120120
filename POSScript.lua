@@ -2,6 +2,23 @@ local POSModule = {}
 
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
+    if staffID and state.onLogIn == true then
+        state.open = true
+        state.staffScreen.Main.Visible = true
+        state.POS.Beep:Play()
+        state.main.Items.ItemList.Template.Visible = false
+        state.customerScreen.Main.ItemList.Template.Visible = false
+        state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
+        state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
+        state.customerScreen.Closed.Visible = false
+        state.customerScreen.Main.Visible = true
+        POSModule.showCustomerUI(state)
+    end
+end
+
+--[[
+function POSModule.logIn(tool, state)
+    local staffID = tool["POINTPLUS_STAFF"]
     if staffID and state.open == false and state.onLogIn == true then
         state.open = true
         state.staffScreen.Main.Visible = true
@@ -15,6 +32,8 @@ function POSModule.logIn(tool, state)
         POSModule.showCustomerUI(state)
     end
 end
+--]]
+
 
 function POSModule.showCustomerUI(state)
     state.customerScreen.Closed.Visible = false
