@@ -157,6 +157,7 @@ end
 
 function POSModule.cardTransaction(state)
     if state.transaction == false and state.totalPrice > 0 then
+        print("Transaction started")
         state.transaction = true
         POS.Beep:Play()
         
