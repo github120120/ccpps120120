@@ -157,9 +157,9 @@ end
 
 function POSModule.cardTransaction(state)
     if state.transaction == false and state.totalPrice > 0 then
+        state.POS.Beep:Play()
         print("Transaction started")
         state.transaction = true
-        POS.Beep:Play()
         
         state.cardReader.InsertCard.Transparency = 0.5
 
