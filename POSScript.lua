@@ -40,6 +40,9 @@ function POSModule.logIn(tool, state)
     if staffID then
         state.open = true
         state.staffScreen.Main.Visible = true
+        state.staffScreen.LogIn.Visible = false
+        state.customerScreen.Closed.Visible = false
+        state.customerScreen.Main.Visible = true
         state.POS.Beep:Play()
         state.main.Items.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemList.Template.Visible = false
