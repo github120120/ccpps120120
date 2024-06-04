@@ -10,12 +10,15 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
-        if state.customerScreen.Closed.Visible == true then
+        
+        -- Check if the customer UI was previously open
+        if state.customerUIOpen == false then
             state.customerScreen.Closed.Visible = false
             state.customerScreen.Main.Visible = true
+            state.customerUIOpen = true
+            -- Show the customer UI
             POSModule.showCustomerUI(state)
         end
-
     end
 end
 
@@ -77,6 +80,9 @@ function POSModule.logOut(state)
     state.customerScreen.Main.Total.TotalPrice.Text = "$0"
     state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
     state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
+
+    -- Save the state of the customer UI
+    state.customerUIOpen = false
 end
 
 function POSModule.scanItem(item, state)
