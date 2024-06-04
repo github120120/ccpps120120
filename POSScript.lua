@@ -33,7 +33,7 @@ end
 
 function POSModule.logIn(tool, state)
     local staffID = tool["POINTPLUS_STAFF"]
-    if staffID and then
+    if staffID then
         state.open = true
         state.staffScreen.Main.Visible = true
         state.POS.Beep:Play()
