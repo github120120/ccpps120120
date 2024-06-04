@@ -10,14 +10,11 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
-        
-        -- Check if the customer UI was previously open
-        if state.customerUIOpen == false then
+        -- Check if the customer UI is closed
+        if state.customerScreen.Closed.Visible == true then
+            -- Open the customer UI
             state.customerScreen.Closed.Visible = false
             state.customerScreen.Main.Visible = true
-            state.customerUIOpen = true
-            -- Show the customer UI
-            --POSModule.showCustomerUI(state)
         end
     end
 end
