@@ -3,6 +3,9 @@ local POSModule = {}
 -- Ensures initial state is set up correctly
 function POSModule.init(state)
     state.open = false
+    state.POS = script.Parent
+    state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
+    state.staffScreen = state.POS.StaffMonitor.Screen.SurfaceGui.POSUI
     --state.onLogIn = false
     state.transaction = false
     state.totalPrice = 0
@@ -18,8 +21,6 @@ function POSModule.init(state)
         if tool:FindFirstChild("POINTPLUS_STAFF") then
             POSModule.logIn(tool, state)
             POSModule.showCustomerUI(state)
-            state.customerScreen.Closed.Visible = false
-            state.customerScreen.Main.Visible = true
         elseif tool:FindFirstChild("POINTPLUS_ITEM") then
             POSModule.scanItem(tool, state)
         end
@@ -44,9 +45,6 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
-        POSModule.showCustomerUI(state)
-        state.customerScreen.Closed.Visible = false
-        state.customerScreen.Main.Visible = true
     end
 end
 function POSModule.showCustomerUI(state)
@@ -235,9 +233,12 @@ function POSModule.typePin(state)
             wait(1)
             state.transaction = false
             POSModule.voidTransaction(state)
-            wait(3)
+            wait(2.5)
+            state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Waiting for cashier..."
+            state.cardReader.Screen.SurfaceGui.Frame.Bottom.Text = "$100 Contactless Limit"
             state.notice.Visible = false
             state.main.Items.ItemList.Visible = true
+            
         end
     end
 end
