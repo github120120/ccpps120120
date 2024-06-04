@@ -10,6 +10,8 @@ function POSModule.logIn(tool, state)
         state.customerScreen.Main.ItemList.Template.Visible = false
         state.customerScreen.Main.ItemScanned.ItemScannedName.Text = "---"
         state.customerScreen.Main.ItemScanned.ItemScannedPrice.Text = "---"
+        state.customerScreen.Closed.Visible = false
+        state.customerScreen.Main.Visible = true
     end
 end
 
@@ -17,8 +19,6 @@ function POSModule.logInScreen(state)
     state.onLogIn = true
     state.staffScreen.Locked.Visible = false
     state.staffScreen.LogIn.Visible = true
-    state.customerScreen.Closed.Visible = false
-    state.customerScreen.Main.Visible = true
 end
 
 function POSModule.goBack(state)
