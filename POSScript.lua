@@ -70,7 +70,7 @@ function POSModule.logOut(state)
     state.main.Visible = false
     state.customerScreen.Main.Visible = false
     state.customerScreen.Closed.Visible = true
-    state.staffScreen.Locked.Visible = true
+    state.staffScreen.LogIn.Visible = true
     state.POS.LogOut:Play()
     
     state.totalPrice = 0
