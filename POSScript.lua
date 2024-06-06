@@ -112,7 +112,7 @@ function POSModule.scanItem(item, state)
             state.totalPrice = math.floor(state.totalPrice * 100) / 100
             local itemName = product.Parent.Parent.Name
 
-            table.insert(state.itemList, {name = itemName, price = price}) -- Add this line
+            --table.insert(state.itemList, {name = itemName, price = price}) -- Add this line
 
 
             local newItem = state.POS.CustomerMonitor.Screen.SurfaceGui.Template:Clone()
@@ -285,8 +285,8 @@ function POSModule.cardTap(card, state)
         wait(1)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Printing Receipt..."
         
-        local receiptText = POSModule.formatReceipt(state) -- Add this line
-        print(receiptText) -- Print the formatted receipt
+        --local receiptText = POSModule.formatReceipt(state) -- Add this line
+        --print(receiptText) -- Print the formatted receipt
         POSModule.PrintReceipt()
         
         
@@ -321,9 +321,12 @@ function POSModule.GrabReceipt(plr)
     
     if state.canGrabReceipt == true then
         receiptTool.Parent = plr.Backpack
+        state.grabReceipt.Transparency = 1
+        state.grabReceipt.CanCollide = false
     end
 end
 
+--[[
 function POSModule.formatReceipt(state)
     local receiptText = ""
     for _, item in ipairs(state.itemList) do
@@ -335,3 +338,4 @@ function POSModule.formatReceipt(state)
 end
 
 return POSModule
+--]]
