@@ -15,7 +15,7 @@ function POSModule.init(state)
     state.isInsert = false
     state.isContactless = false
     state.customerUIOpen = false
-    state.itemList = {} -- Add this line
+    --state.itemList = {} -- Add this line
 
 
     -- Connect events
