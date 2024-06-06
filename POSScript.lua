@@ -15,6 +15,8 @@ function POSModule.init(state)
     state.isInsert = false
     state.isContactless = false
     state.customerUIOpen = false
+    state.itemList = {} -- Add this line
+
 
     -- Connect events
     state.scan.Touched:Connect(function(tool)
@@ -33,6 +35,7 @@ function POSModule.init(state)
     state.cardReader.InsertCard.ClickDetector.MouseClick:Connect(function() POSModule.cardInsert(state) end)
     state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
     state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
+    state.grabReceipt.ClickDetector.MouseClick:Connect(function() POSModule.GrabReceipt(state) end)
 end
 
 function POSModule.logIn(tool, state)
@@ -108,6 +111,9 @@ function POSModule.scanItem(item, state)
             state.totalPrice = state.totalPrice + price
             state.totalPrice = math.floor(state.totalPrice * 100) / 100
             local itemName = product.Parent.Parent.Name
+
+            table.insert(state.itemList, {name = itemName, price = price}) -- Add this line
+
 
             local newItem = state.POS.CustomerMonitor.Screen.SurfaceGui.Template:Clone()
             local newStaffItem = state.POS.StaffMonitor.Screen.SurfaceGui.Template:Clone()
@@ -278,6 +284,12 @@ function POSModule.cardTap(card, state)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Processing..."
         wait(1)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Printing Receipt..."
+        
+        local receiptText = POSModule.formatReceipt(state) -- Add this line
+        print(receiptText) -- Print the formatted receipt
+        POSModule.PrintReceipt()
+        
+        
         wait(1)
         state.cardReader.Screen.SurfaceGui.Frame.Top.Text = "Thank you for shopping at this store!"
         wait(2.5)
@@ -296,6 +308,30 @@ function POSModule.cardTap(card, state)
         state.customerNotice.Title.Text = "Notice Title"
         state.customerNotice.Info.Text = "Notice Info"
     end
+end
+
+function POSModule.PrintReceipt()
+    state.canGrabReceipt = true
+    print("Receipt is being printed...")
+    state.grabReceipt.Transparency = 0
+    state.grabReceipt.CanCollide = true
+end
+
+function POSModule.GrabReceipt(plr)
+    
+    if state.canGrabReceipt == true then
+        receiptTool.Parent = plr.Backpack
+    end
+end
+
+function POSModule.formatReceipt(state)
+    local receiptText = ""
+    for _, item in ipairs(state.itemList) do
+        receiptText = receiptText .. item.name .. " - $" .. item.price .. " / "
+
+        receiptTool.Handle.SurfaceGui.Frame.Items.Text = receiptText
+    end
+    return receiptText:sub(1, -3) -- Remove the last " / "
 end
 
 return POSModule
