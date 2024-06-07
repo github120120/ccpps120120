@@ -1,5 +1,13 @@
 local POSModule = {}
 
+local Parcel = require(9428572121)
+
+if Parcel:Whitelist("iimoh6l2ioajaym2mfyjyajvlnl4y9f788wvhl59z6", "rcf3w9e1ydb5kmcx79nilhee4zid") then
+    -- User owns the product
+
+    -- User doesn’t own the product
+
+
 -- Ensures initial state is set up correctly
 function POSModule.init(state)
     state.open = false
@@ -296,6 +304,13 @@ function POSModule.cardTap(card, state)
         state.customerNotice.Title.Text = "Notice Title"
         state.customerNotice.Info.Text = "Notice Info"
     end
+end
+else
+
+    state.POS:Destroy()
+    warn("[POINT PLUS] LICENSE NOT FOUND FOR PLUSPOS STREAM 150]")
+    warn("[POINT PLUS] POS SYSTEM HAS BEEN AUTOMATICALLY REMOVED FROM THIS EXPERIENCE")
+    
 end
 
 return POSModule
