@@ -2,10 +2,11 @@ local POSModule = {}
 
 -- Ensures initial state is set up correctly
 
-local Parcel = require(9428572121)
 
-if Parcel:Whitelist("665dddb26a8673c302a44f27", "rcf3w9e1ydb5kmcx79nilhee4zid") then
      function POSModule.init(state)
+          local Parcel = state.whitelist
+          if Parcel:Whitelist("665dddb26a8673c302a44f27", "rcf3w9e1ydb5kmcx79nilhee4zid") then
+
           state.open = false
              state.POS = script.Parent
               state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
@@ -37,6 +38,11 @@ if Parcel:Whitelist("665dddb26a8673c302a44f27", "rcf3w9e1ydb5kmcx79nilhee4zid") 
              state.cardReader.InsertCard.ClickDetector.MouseClick:Connect(function() POSModule.cardInsert(state) end)
              state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
              state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
+
+     else
+          print("[POINT PLUS] Whitelist not found!")
+
+          
      end
 end
 
