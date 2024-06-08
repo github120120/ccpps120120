@@ -2,17 +2,9 @@ local POSModule = {}
 
 -- Ensures initial state is set up correctly
 function POSModule.init(state)
-
-    local Parcel = require(9428572121)
-
-    if Parcel:Whitelist("iimoh6l2ioajaym2mfyjyajvlnl4y9f788wvhl59z6", "rcf3w9e1ydb5kmcx79nilhee4zid") then
-    -- User owns the product
-
-    -- User doesn’t own the product
-
-        state.open = false
+     state.open = false
         state.POS = script.Parent
-        state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
+         state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
         state.staffScreen = state.POS.StaffMonitor.Screen.SurfaceGui.POSUI
         --state.onLogIn = false
         state.transaction = false
@@ -20,7 +12,7 @@ function POSModule.init(state)
         state.typingPin = false
         state.contactless = false
         state.canInsert = false
-        state.isInsert = false
+       state.isInsert = false
         state.isContactless = false
         state.customerUIOpen = false
     
@@ -41,14 +33,6 @@ function POSModule.init(state)
         state.cardReader.InsertCard.ClickDetector.MouseClick:Connect(function() POSModule.cardInsert(state) end)
         state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
         state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
-
-    else
-
-        state.POS:Destroy()
-        warn("[POINT PLUS] LICENSE NOT FOUND FOR PLUSPOS STREAM 150]")
-        warn("[POINT PLUS] POS SYSTEM HAS BEEN AUTOMATICALLY REMOVED FROM THIS EXPERIENCE")
-    
-end
 end
 
 function POSModule.logIn(tool, state)
