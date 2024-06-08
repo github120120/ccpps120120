@@ -1,46 +1,54 @@
 local POSModule = {}
 
-local Parcel = require(9428572121)
+-- Ensures initial state is set up correctly
+function POSModule.init(state)
 
-if Parcel:Whitelist("iimoh6l2ioajaym2mfyjyajvlnl4y9f788wvhl59z6", "rcf3w9e1ydb5kmcx79nilhee4zid") then
+    local Parcel = require(9428572121)
+
+    if Parcel:Whitelist("iimoh6l2ioajaym2mfyjyajvlnl4y9f788wvhl59z6", "rcf3w9e1ydb5kmcx79nilhee4zid") then
     -- User owns the product
 
     -- User doesn’t own the product
 
+        state.open = false
+        state.POS = script.Parent
+        state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
+        state.staffScreen = state.POS.StaffMonitor.Screen.SurfaceGui.POSUI
+        --state.onLogIn = false
+        state.transaction = false
+        state.totalPrice = 0
+        state.typingPin = false
+        state.contactless = false
+        state.canInsert = false
+        state.isInsert = false
+        state.isContactless = false
+        state.customerUIOpen = false
+    
+        -- Connect events
+        state.scan.Touched:Connect(function(tool)
+            if tool:FindFirstChild("POINTPLUS_STAFF") then
+                POSModule.logIn(tool, state)
+                POSModule.showCustomerUI(state)
+            elseif tool:FindFirstChild("POINTPLUS_ITEM") then
+                POSModule.scanItem(tool, state)
+            end
+        end)
+        --state.staffScreen.Locked.LogInButton.MouseButton1Click:Connect(function() POSModule.logInScreen(state) end)
+        --state.staffScreen.LogIn.BackButton.MouseButton1Click:Connect(function() POSModule.goBack(state) end)
+        state.staffScreen.Main.LogOut.MouseButton1Click:Connect(function() POSModule.logOut(state) end)
+        state.main.Buttons.Void.MouseButton1Click:Connect(function() POSModule.voidTransaction(state) end)
+        state.main.Buttons.Card.MouseButton1Click:Connect(function() POSModule.cardTransaction(state) end)
+        state.cardReader.InsertCard.ClickDetector.MouseClick:Connect(function() POSModule.cardInsert(state) end)
+        state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
+        state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
 
--- Ensures initial state is set up correctly
-function POSModule.init(state)
-    state.open = false
-    state.POS = script.Parent
-    state.customerScreen = state.POS.CustomerMonitor.Screen.SurfaceGui.POSUI
-    state.staffScreen = state.POS.StaffMonitor.Screen.SurfaceGui.POSUI
-    --state.onLogIn = false
-    state.transaction = false
-    state.totalPrice = 0
-    state.typingPin = false
-    state.contactless = false
-    state.canInsert = false
-    state.isInsert = false
-    state.isContactless = false
-    state.customerUIOpen = false
+    else
 
-    -- Connect events
-    state.scan.Touched:Connect(function(tool)
-        if tool:FindFirstChild("POINTPLUS_STAFF") then
-            POSModule.logIn(tool, state)
-            POSModule.showCustomerUI(state)
-        elseif tool:FindFirstChild("POINTPLUS_ITEM") then
-            POSModule.scanItem(tool, state)
-        end
-    end)
-    --state.staffScreen.Locked.LogInButton.MouseButton1Click:Connect(function() POSModule.logInScreen(state) end)
-    --state.staffScreen.LogIn.BackButton.MouseButton1Click:Connect(function() POSModule.goBack(state) end)
-    state.staffScreen.Main.LogOut.MouseButton1Click:Connect(function() POSModule.logOut(state) end)
-    state.main.Buttons.Void.MouseButton1Click:Connect(function() POSModule.voidTransaction(state) end)
-    state.main.Buttons.Card.MouseButton1Click:Connect(function() POSModule.cardTransaction(state) end)
-    state.cardReader.InsertCard.ClickDetector.MouseClick:Connect(function() POSModule.cardInsert(state) end)
-    state.cardReader.Tap.Touched:Connect(function(card) POSModule.cardTap(card, state) end)
-    state.cardReader.Touch.ClickDetector.MouseClick:Connect(function() POSModule.typePin(state) end)
+        state.POS:Destroy()
+        warn("[POINT PLUS] LICENSE NOT FOUND FOR PLUSPOS STREAM 150]")
+        warn("[POINT PLUS] POS SYSTEM HAS BEEN AUTOMATICALLY REMOVED FROM THIS EXPERIENCE")
+    
+end
 end
 
 function POSModule.logIn(tool, state)
@@ -304,13 +312,6 @@ function POSModule.cardTap(card, state)
         state.customerNotice.Title.Text = "Notice Title"
         state.customerNotice.Info.Text = "Notice Info"
     end
-end
-else
-
-    state.POS:Destroy()
-    warn("[POINT PLUS] LICENSE NOT FOUND FOR PLUSPOS STREAM 150]")
-    warn("[POINT PLUS] POS SYSTEM HAS BEEN AUTOMATICALLY REMOVED FROM THIS EXPERIENCE")
-    
 end
 
 return POSModule
